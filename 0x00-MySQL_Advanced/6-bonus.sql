@@ -19,13 +19,7 @@ BEGIN
         SELECT id INTO project_id FROM projects WHERE name = project_name;
     END IF;
 
-    IF NOT EXISTS (SELECT * FROM corrections WHERE user_id = user_id AND project_id = project_id) THEN
-        INSERT INTO corrections (user_id, project_id, score) VALUES (user_id, project_id, score);
-    ELSE
-        UPDATE corrections 
-        SET score = score + IFNULL(score, 0) + score
-        WHERE user_id = user_id AND project_id = project_id;
-    END IF;
+    INSERT INTO corrections (user_id, project_id, score) VALUES (user_id, project_id, score);
 END $$
 
 DELIMITER ;
