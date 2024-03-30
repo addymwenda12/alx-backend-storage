@@ -6,15 +6,29 @@
 -- 
 DELIMITER $$
 
-CREATE PROCEDURE ComputeAverageScoreForUser (user_id INT)
+CREATE PROCEDURE ComputeAverageScoreForUser(
+    IN p_user_id INT
+)
 BEGIN
-    UPDATE users
-    SET average_score = (
-        SELECT AVG(score)
-        FROM corrections
-        WHERE user_id = users.id
-    )
-    WHERE id = user_id;
+    DECLARE total_score DECIMAL(10,2);
+    DECLARE total_projects INT;
+    
+    -- Calculate total score for the user
+    SELECT SUM(score) INTO total_score
+    FROM corrections
+    WHERE user_id = p_user_id;
+    
+    -- Calculate total projects for the user
+    SELECT COUNT(*) INTO total_projects
+    FROM corrections
+    WHERE user_id = p_user_id;
+    
+    -- Update average score for the user
+    IF total_projects > 0 THEN
+        UPDATE users
+        SET average_score = total_score / total_projects
+        WHERE id = p_user_id;
+    END IF;
 END $$
 
 DELIMITER ;
