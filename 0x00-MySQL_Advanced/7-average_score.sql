@@ -8,7 +8,7 @@ DELIMITER $$
 
 CREATE PROCEDURE ComputeAverageScoreForUser (user_id INT)
 BEGIN
-    UPDATE users 
+    UPDATE users
     SET average_score = (
         SELECT AVG(score)
         FROM corrections
