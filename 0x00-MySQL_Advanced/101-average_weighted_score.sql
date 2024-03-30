@@ -3,6 +3,7 @@ DELIMITER $$
 
 CREATE PROCEDURE ComputeAverageWeightedScoreForUsers()
 BEGIN
+    -- Declare variables
     DECLARE user_id_val INT;
     DECLARE project_id_val INT;
     DECLARE user_score FLOAT;
