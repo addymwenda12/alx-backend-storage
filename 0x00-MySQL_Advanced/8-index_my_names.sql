@@ -3,5 +3,5 @@
 -- Importing the table dump
 source names.sql;
 
--- Creating the index
-CREATE INDEX idx_name_first ON names (LEFT(name, 1));
+-- Checking if the index exists
+SHOW INDEX FROM names WHERE Key_name = 'idx_name_first';
